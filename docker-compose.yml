@@ -3,7 +3,7 @@ version: '3.1'
 services:
 
   wordpress:
-    image: wordpress
+    image: wordpress:fpm-alpine
     container_name: wordpress
     domainname: docker
     ports:
