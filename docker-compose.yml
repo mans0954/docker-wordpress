@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+
+  wordpress:
+    image: wordpress
+    container_name: wordpress
+    domainname: docker
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_PASSWORD: example
+    volumes:     
+      - "mysite:/var/www/html"
+
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+
+  wp-cli:
+    image: wordpress:cli
+    container_name: wp-cli
+    volumes: 
+      - "mysite:/var/www/html"
+
+volumes:
+  mysite:
