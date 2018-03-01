@@ -1,4 +1,3 @@
-docker-compose -f stack.yml
 # docker-wordpress
 
 Makes use of the official wordpress and wordpress:cli images
@@ -21,5 +20,7 @@ List contents of volume:
 sudo ls /var/lib/docker/volumes/wordpress_mysite/_data
 ```
 
+# References
 
+* Setup with php-fpm and NGINX https://github.com/docker-library/wordpress/issues/250
 

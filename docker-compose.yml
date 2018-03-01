@@ -2,20 +2,22 @@ version: '3.1'
 
 services:
 
-  wordpress:
+  php-fpm:
     image: wordpress:fpm-alpine
-    container_name: wordpress
-    domainname: docker
-    ports:
-      - 8080:80
     environment:
       WORDPRESS_DB_PASSWORD: example
+    networks:
+      - wordpress
     volumes:     
       - "mysite:/var/www/html"
 
 
   mysql:
     image: mysql:5.7
+    volumes:
+      - "database:/var/lib/mysql"
+    networks:
+      - wordpress
     environment:
       MYSQL_ROOT_PASSWORD: example
 
@@ -24,6 +26,23 @@ services:
     container_name: wp-cli
     volumes: 
       - "mysite:/var/www/html"
+    networks:
+      - wordpress
+
+  web-server:
+    image: nginx:1.13
+    container_name: wordpress
+    domainname: docker
+    networks:
+      - wordpress
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - mysite:/var/www/html
+    ports: ["8080:80"]
 
 volumes:
+  database:
   mysite:
+
+networks:
+  wordpress:
